@@ -1,0 +1,4 @@
+GET        /         controllers.WeatherController.index
+GET        /stations controllers.WeatherController.stations
+GET        /socket        controllers.WeatherController.socket
+GET        /assets/*file  controllers.Assets.at(patgh = "/public", file)

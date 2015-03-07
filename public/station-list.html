@@ -1,0 +1,29 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            Search: <input ng-model="query">
+        </div>
+        <div class="col-md-10">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Station ID</th>
+                    <th>Name</th>
+                    <th>Call sign</th>
+                    <th>Country code</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr ng-repeat="station in weather_stations | filter:query | orderBy:name">
+                    <td>{{station.id}}</td>
+                    <td>{{station.name}}</td>
+                    <td>{{station.callSign}}</td>
+                    <td>{{station.countryCode}}</td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>
