@@ -7,7 +7,7 @@ var weatherApp = angular.module('weatherApp', [
     'ngTable',
     'ngRoute',
     'stationControllers'
-])
+]);
 
 weatherApp.config(['$routeProvider',
     function($routeProvider) {

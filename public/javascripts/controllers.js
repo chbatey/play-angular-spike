@@ -6,8 +6,8 @@ var stationControllers = angular.module('stationControllers', []);
 
 stationControllers.controller('WeatherStationListCtrl', ['$scope', '$http',
     function($scope, $http) {
-        $http.get('/stations').success(function(data) {
-            console.info(data)
+        $http.get('/station').success(function(data) {
+            console.info(data);
             $scope.weather_stations = data
         });
     }]);
@@ -15,7 +15,7 @@ stationControllers.controller('WeatherStationListCtrl', ['$scope', '$http',
 stationControllers.controller('WeatherStationDataCtrl', ['$scope', '$websocket',
     function($scope, $websocket) {
 
-        $scope.liveData = "Unknown"
+        $scope.liveData = "Unknown";
         var ws = $websocket.$new('ws://localhost:9000/socket'); // instance of ngWebsocket, handled by $websocket service
 
         ws.$on('$open', function () {
@@ -36,9 +36,12 @@ stationControllers.controller('WeatherStationDataCtrl', ['$scope', '$websocket',
 
     }]);
 
-stationControllers.controller('WeatherStationDetailCtrl', ['$scope', '$routeParams',
-    function($scope, $routeParams) {
-        $scope.stationId = $routeParams.stationId
+stationControllers.controller('WeatherStationDetailCtrl', ['$scope', '$routeParams', '$http',
+    function($scope, $routeParams, $http) {
+        $http.get('/station/' + $routeParams.stationId).success(function(data) {
+            console.info(data);
+            $scope.station = data
+        });
     }]);
 
 

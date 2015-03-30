@@ -1,6 +1,5 @@
 package controllers
 
-import akka.cluster.Cluster
 import play.api.Play.current
 import play.api.mvc.{Action, Controller, WebSocket}
 
@@ -28,6 +27,15 @@ object WeatherController extends Controller {
       """.stripMargin)
   }
 
+  def station(id: String) = Action {
+    Ok("""
+      {"name": "BOGUS NORWAY",
+      "id": "408930:99999",
+      "callSign":"OKIU",
+      "countryCode":"GB"}
+      """)
+  }
+
   def socket = WebSocket.acceptWithActor[String, String] { request => out =>
     WebSocketActor.props(out)
   }
@@ -39,9 +47,6 @@ object WeatherController extends Controller {
   }
 
   class WebSocketActor(out: ActorRef) extends Actor {
-
-    val guardian = context.actorSelection(Cluster(context.system).selfAddress.copy(port = Some(2550)) + "/user/node-guardian")
-    guardian ! "hello"
 
     context.system.scheduler.schedule(1 seconds, 1 seconds, self, ScheduledMsg("send me baby"))
     var count = 0
